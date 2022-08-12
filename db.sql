@@ -170,6 +170,17 @@ CREATE TABLE op_performances(
     FOREIGN KEY (operator_reg_num) REFERENCES operators(reg_num)
 );
 
+CREATE TABLE prod_performances(
+    id INT NOT NULL AUTO_INCREMENT,
+    prod_line VARCHAR(255) NOT NULL,
+    operator_reg_num VARCHAR(255) NOT NULL,
+    performance VARCHAR(255) NOT NULL,
+    cur_date DATE DEFAULT CURDATE(),
+    cur_time TIME DEFAULT CURTIME(),
+    PRIMARY KEY(id),
+    FOREIGN KEY (operator_reg_num) REFERENCES operators(reg_num)
+);
+
 CREATE TABLE notifications(
     id INT NOT NULL AUTO_INCREMENT,
     prod_line VARCHAR(255) NOT NULL,
@@ -198,4 +209,12 @@ CREATE TABLE interventions(
     PRIMARY KEY(id),
     FOREIGN KEY (maintainer_reg_num) REFERENCES maintainer_reg_num(reg_num),
     FOREIGN KEY (machine_ref) REFERENCES machines(ref)
+);
+
+CREATE TABLE tags(
+    id INT NOT NULL AUTO_INCREMENT,
+    tag_sort VARCHAR(255) NOT NULL DEFAULT '',
+    tag_exp VARCHAR(255) NOT NULL DEFAULT '',
+    tag_operator VARCHAR(255) NOT NULL DEFAULT '',
+    PRIMARY KEY(id)
 );
