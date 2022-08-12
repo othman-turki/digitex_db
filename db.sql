@@ -6,7 +6,7 @@
 
 CREATE TABLE operators(
     id INT NOT NULL AUTO_INCREMENT,
-    rfid VARCHAR(255) UNIQUE DEFAULT NULL,
+    card_id VARCHAR(255) UNIQUE DEFAULT NULL,
     reg_num VARCHAR(255) UNIQUE NOT NULL,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE prod_lines(
 
 CREATE TABLE fab_orders(
     id INT NOT NULL AUTO_INCREMENT,
-    fab_order VARCHAR(255) NOT NULL,
+    number VARCHAR(255) NOT NULL,
     model VARCHAR(255) NOT NULL,
     client VARCHAR(255) NOT NULL,
     prod_line VARCHAR(255) NOT NULL,
@@ -66,20 +66,22 @@ CREATE TABLE fab_orders(
     fo_status VARCHAR(255) NOT NULL DEFAULT 'START',
     start_date VARCHAR(255) NOT NULL,
     end_date VARCHAR(255) NOT NULL DEFAULT '',
-    dt_import DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    import_date DATE DEFAULT DATE_FORMAT(CURDATE(), '%d/%m/%Y'),
+    import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id)
 );
 
 CREATE TABLE packets(
     id INT NOT NULL AUTO_INCREMENT,
-    rfid VARCHAR(255) UNIQUE DEFAULT NULL,
+    tag_id VARCHAR(255) UNIQUE DEFAULT NULL,
     pack_num VARCHAR(255) UNIQUE NOT NULL,
     start_date VARCHAR(255) NOT NULL,
     color VARCHAR(255) NOT NULL,
     size VARCHAR(255) NOT NULL,
     quantity VARCHAR(255) NOT NULL,
-    fab_order_id INT NOT NULL,  -- model, client, prod_line FROM fab_orders
-    dt_import DATETIME DEFAULT CURRENT_TIMESTAMP,
+    fab_order_id INT NOT NULL,
+    import_date DATE DEFAULT DATE_FORMAT(CURDATE(), '%d/%m/%Y'),
+    import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
     FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE
 );
@@ -102,7 +104,8 @@ CREATE TABLE gamut(
     machine_name VARCHAR(255) DEFAULT NULL,
     machine_ref VARCHAR(255) DEFAULT NULL,
     digitex VARCHAR(255) DEFAULT NULL,
-    dt_import DATETIME DEFAULT CURRENT_TIMESTAMP,
+    import_date DATE DEFAULT DATE_FORMAT(CURDATE(), '%d/%m/%Y'),
+    import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
     FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE,
     FOREIGN KEY (pack_num) REFERENCES packets(pack_num)
