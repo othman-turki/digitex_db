@@ -32,7 +32,7 @@ CREATE TABLE maintainers(
 CREATE TABLE machines(
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(255) NOT NULL,
-    ref VARCHAR(255) NOT NULL,
+    ref VARCHAR(255) UNIQUE NOT NULL,
     PRIMARY KEY(id)
 );
 
@@ -41,12 +41,12 @@ CREATE TABLE prod_lines(
     prod_line VARCHAR(255) NOT NULL,
     operator_reg_num VARCHAR(255) NOT NULL,
     monitor_reg_num VARCHAR(255) NOT NULL,
-    machine_id INT DEFAULT NULL,
+    machine_ref VARCHAR(255) DEFAULT NULL,
     digitex VARCHAR(255) DEFAULT NULL,
     PRIMARY KEY(id),
     FOREIGN KEY (operator_reg_num) REFERENCES operators(reg_num),
     FOREIGN KEY (monitor_reg_num) REFERENCES monitors(reg_num),
-    FOREIGN KEY (machine_id) REFERENCES machines(id)
+    FOREIGN KEY (machine_ref) REFERENCES machines(ref)
 );
 
 
@@ -87,7 +87,7 @@ CREATE TABLE packets(
 );
 
 -- SELECT 
---     T2.rfid, T2.pack_num, T2.start_date, T2.color, T2.size, T2.quantity, T1.model, T1.client, T1.prod_line, T2.dt_import
+--     T2.tag_id, T2.pack_num, T2.start_date, T2.color, T2.size, T2.quantity, T1.model, T1.client, T1.prod_line
 -- FROM fab_orders AS T1
 -- INNER JOIN packets AS T2
 -- ON
@@ -101,14 +101,14 @@ CREATE TABLE gamut(
     designation VARCHAR(255) NOT NULL,
     unit_time VARCHAR(255) NOT NULL,
     qte_h VARCHAR(255) NOT NULL,
-    machine_name VARCHAR(255) DEFAULT NULL,
     machine_ref VARCHAR(255) DEFAULT NULL,
     digitex VARCHAR(255) DEFAULT NULL,
     import_date DATE DEFAULT DATE_FORMAT(CURDATE(), '%d/%m/%Y'),
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
     FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE,
-    FOREIGN KEY (pack_num) REFERENCES packets(pack_num)
+    FOREIGN KEY (pack_num) REFERENCES packets(pack_num),
+    FOREIGN KEY (machine_ref) REFERENCES machines(ref)
 );
 
 
