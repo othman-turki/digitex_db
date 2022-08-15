@@ -58,7 +58,7 @@ CREATE TABLE prod_lines(
 
 CREATE TABLE fab_orders(
     id INT NOT NULL AUTO_INCREMENT,
-    number VARCHAR(80) NOT NULL,
+    number VARCHAR(80) UNIQUE NOT NULL,
     model VARCHAR(80) NOT NULL,
     client VARCHAR(80) NOT NULL,
     prod_line VARCHAR(40) NOT NULL,
@@ -79,11 +79,11 @@ CREATE TABLE packets(
     color VARCHAR(40) NOT NULL,
     size VARCHAR(40) NOT NULL,
     quantity VARCHAR(40) NOT NULL,
-    fab_order_id INT NOT NULL,
+    fab_order_number VARCHAR(80) NOT NULL,
     import_date DATE DEFAULT CURDATE(),
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
-    FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE
+    FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE
 );
 
 -- SELECT 
@@ -95,7 +95,7 @@ CREATE TABLE packets(
 
 CREATE TABLE gamuts(
     id INT NOT NULL AUTO_INCREMENT,
-    fab_order_id INT NOT NULL,
+    fab_order_number VARCHAR(80) NOT NULL,
     operation_code VARCHAR(40) NOT NULL,
     designation VARCHAR(80) NOT NULL,
     unit_time VARCHAR(40) NOT NULL,
@@ -103,12 +103,12 @@ CREATE TABLE gamuts(
     import_date DATE DEFAULT CURDATE(),
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
-    FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE
+    FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE
 );
 
 CREATE TABLE pack_gamuts(
     id INT NOT NULL AUTO_INCREMENT,
-    fab_order_id INT NOT NULL,
+    fab_order_number VARCHAR(80) NOT NULL,
     pack_num VARCHAR(40) NOT NULL,
     operation_code VARCHAR(40) NOT NULL,
     designation VARCHAR(80) NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE pack_gamuts(
     import_date DATE DEFAULT CURDATE(),
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
-    FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE,
     FOREIGN KEY (pack_num) REFERENCES packets(pack_num),
     FOREIGN KEY (machine_ref) REFERENCES machines(ref)
 );
