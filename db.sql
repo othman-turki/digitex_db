@@ -74,6 +74,7 @@ CREATE TABLE fab_orders(
 CREATE TABLE packets(
     id INT NOT NULL AUTO_INCREMENT,
     tag_id VARCHAR(20) UNIQUE DEFAULT NULL,
+    pack_status VARCHAR(40) NOT NULL DEFAULT '',
     pack_num VARCHAR(40) UNIQUE NOT NULL,
     start_date VARCHAR(40) NOT NULL,
     color VARCHAR(40) NOT NULL,
