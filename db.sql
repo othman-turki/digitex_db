@@ -93,6 +93,19 @@ CREATE TABLE packets(
 -- ON
 --     tbl_1.id = tbl_2.fab_order_id;
 
+CREATE TABLE gamuts(
+    id INT NOT NULL AUTO_INCREMENT,
+    fab_order_id INT NOT NULL,
+    operation_code VARCHAR(40) NOT NULL,
+    designation VARCHAR(80) NOT NULL,
+    unit_time VARCHAR(40) NOT NULL,
+    qte_h VARCHAR(40) NOT NULL,
+    import_date DATE DEFAULT CURDATE(),
+    import_time TIME DEFAULT CURTIME(),
+    PRIMARY KEY(id),
+    FOREIGN KEY (fab_order_id) REFERENCES fab_orders(id) ON DELETE CASCADE
+);
+
 CREATE TABLE pack_gamuts(
     id INT NOT NULL AUTO_INCREMENT,
     fab_order_id INT NOT NULL,
@@ -162,8 +175,8 @@ CREATE TABLE op_performances(
     id INT NOT NULL AUTO_INCREMENT,
     operator_reg_num VARCHAR(20) NOT NULL,
     production_time VARCHAR(40) NOT NULL,
-    downtime VARCHAR(40) NOT NULL,
     presence_time VARCHAR(40) NOT NULL,
+    downtime VARCHAR(40) NOT NULL,
     performance VARCHAR(40) NOT NULL,
     cur_date DATE DEFAULT CURDATE(),
     cur_time TIME DEFAULT CURTIME(),
@@ -189,6 +202,7 @@ CREATE TABLE notifications(
     operator_reg_num VARCHAR(20) NOT NULL,
     monitor_reg_num VARCHAR(20) NOT NULL,
     call_monitor VARCHAR(40) NOT NULL DEFAULT '',
+    instant_call_monitor VARCHAR(40) NOT NULL DEFAULT '',
     monitor_arrival_time VARCHAR(40) NOT NULL DEFAULT '',
     call_maintainer VARCHAR(40) NOT NULL DEFAULT '',
     instant_call_maintainer VARCHAR(40) NOT NULL DEFAULT '',
@@ -201,10 +215,10 @@ CREATE TABLE notifications(
 CREATE TABLE interventions(
     id INT NOT NULL AUTO_INCREMENT,
     maintainer_reg_num VARCHAR(20) NOT NULL,
-    intervention_time VARCHAR(40) NOT NULL DEFAULT '',
+    duration VARCHAR(40) NOT NULL DEFAULT '',
     failure_type VARCHAR(40) NOT NULL DEFAULT '',
     machine_ref VARCHAR(40) NOT NULL DEFAULT '',
-    spare_time VARCHAR(40) NOT NULL DEFAULT '',
+    spare_part VARCHAR(40) NOT NULL DEFAULT '',
     cur_date DATE DEFAULT CURDATE(),
     cur_time TIME DEFAULT CURTIME(),  -- DUPLICATION: check with Hela
     PRIMARY KEY(id),
