@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 16 août 2022 à 11:01
+-- Généré le : mar. 16 août 2022 à 14:32
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -388,8 +388,7 @@ ALTER TABLE `packets`
 --
 ALTER TABLE `pack_gamuts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fab_order_number` (`fab_order_number`),
-  ADD KEY `pack_num` (`pack_num`);
+  ADD KEY `fab_order_number` (`fab_order_number`);
 
 --
 -- Index pour la table `pack_operations`
@@ -578,8 +577,7 @@ ALTER TABLE `packets`
 -- Contraintes pour la table `pack_gamuts`
 --
 ALTER TABLE `pack_gamuts`
-  ADD CONSTRAINT `pack_gamuts_ibfk_1` FOREIGN KEY (`fab_order_number`) REFERENCES `fab_orders` (`number`) ON DELETE CASCADE,
-  ADD CONSTRAINT `pack_gamuts_ibfk_2` FOREIGN KEY (`pack_num`) REFERENCES `packets` (`pack_num`);
+  ADD CONSTRAINT `pack_gamuts_ibfk_1` FOREIGN KEY (`fab_order_number`) REFERENCES `fab_orders` (`number`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `pack_operations`

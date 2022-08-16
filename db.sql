@@ -119,8 +119,7 @@ CREATE TABLE pack_gamuts(
     import_date DATE DEFAULT CURDATE(),
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
-    FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE,
-    FOREIGN KEY (pack_num) REFERENCES packets(pack_num)
+    FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE
 );
 
 
