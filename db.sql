@@ -45,8 +45,7 @@ CREATE TABLE prod_lines(
     digitex VARCHAR(40) NOT NULL DEFAULT '',
     PRIMARY KEY(id),
     FOREIGN KEY (operator_reg_num) REFERENCES operators(reg_num),
-    FOREIGN KEY (monitor_reg_num) REFERENCES monitors(reg_num),
-    FOREIGN KEY (machine_ref) REFERENCES machines(ref)
+    FOREIGN KEY (monitor_reg_num) REFERENCES monitors(reg_num)
 );
 
 
@@ -76,7 +75,6 @@ CREATE TABLE packets(
     tag_id VARCHAR(20) UNIQUE DEFAULT NULL,
     pack_status VARCHAR(40) NOT NULL DEFAULT '',
     pack_num VARCHAR(40) UNIQUE NOT NULL,
-    start_date VARCHAR(40) NOT NULL,
     color VARCHAR(40) NOT NULL,
     size VARCHAR(40) NOT NULL,
     quantity VARCHAR(40) NOT NULL,
@@ -122,8 +120,7 @@ CREATE TABLE pack_gamuts(
     import_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
     FOREIGN KEY (fab_order_number) REFERENCES fab_orders(number) ON DELETE CASCADE,
-    FOREIGN KEY (pack_num) REFERENCES packets(pack_num),
-    FOREIGN KEY (machine_ref) REFERENCES machines(ref)
+    FOREIGN KEY (pack_num) REFERENCES packets(pack_num)
 );
 
 
@@ -221,7 +218,7 @@ CREATE TABLE interventions(
     machine_ref VARCHAR(40) NOT NULL DEFAULT '',
     spare_part VARCHAR(40) NOT NULL DEFAULT '',
     cur_date DATE DEFAULT CURDATE(),
-    cur_time TIME DEFAULT CURTIME(),  -- DUPLICATION: check with Hela
+    cur_time TIME DEFAULT CURTIME(),
     PRIMARY KEY(id),
     FOREIGN KEY (maintainer_reg_num) REFERENCES maintainers(reg_num),
     FOREIGN KEY (machine_ref) REFERENCES machines(ref)
