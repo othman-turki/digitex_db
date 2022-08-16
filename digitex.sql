@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 15 août 2022 à 12:32
+-- Généré le : mar. 16 août 2022 à 10:06
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -188,8 +188,8 @@ CREATE TABLE `op_performances` (
 CREATE TABLE `packets` (
   `id` int(11) NOT NULL,
   `tag_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `pack_status` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `pack_num` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `start_date` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `color` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `size` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `quantity` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -389,8 +389,7 @@ ALTER TABLE `packets`
 ALTER TABLE `pack_gamuts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fab_order_number` (`fab_order_number`),
-  ADD KEY `pack_num` (`pack_num`),
-  ADD KEY `machine_ref` (`machine_ref`);
+  ADD KEY `pack_num` (`pack_num`);
 
 --
 -- Index pour la table `pack_operations`
@@ -412,8 +411,7 @@ ALTER TABLE `presences`
 ALTER TABLE `prod_lines`
   ADD PRIMARY KEY (`id`),
   ADD KEY `operator_reg_num` (`operator_reg_num`),
-  ADD KEY `monitor_reg_num` (`monitor_reg_num`),
-  ADD KEY `machine_ref` (`machine_ref`);
+  ADD KEY `monitor_reg_num` (`monitor_reg_num`);
 
 --
 -- Index pour la table `prod_performances`
@@ -581,8 +579,7 @@ ALTER TABLE `packets`
 --
 ALTER TABLE `pack_gamuts`
   ADD CONSTRAINT `pack_gamuts_ibfk_1` FOREIGN KEY (`fab_order_number`) REFERENCES `fab_orders` (`number`) ON DELETE CASCADE,
-  ADD CONSTRAINT `pack_gamuts_ibfk_2` FOREIGN KEY (`pack_num`) REFERENCES `packets` (`pack_num`),
-  ADD CONSTRAINT `pack_gamuts_ibfk_3` FOREIGN KEY (`machine_ref`) REFERENCES `machines` (`ref`);
+  ADD CONSTRAINT `pack_gamuts_ibfk_2` FOREIGN KEY (`pack_num`) REFERENCES `packets` (`pack_num`);
 
 --
 -- Contraintes pour la table `pack_operations`
@@ -601,8 +598,7 @@ ALTER TABLE `presences`
 --
 ALTER TABLE `prod_lines`
   ADD CONSTRAINT `prod_lines_ibfk_1` FOREIGN KEY (`operator_reg_num`) REFERENCES `operators` (`reg_num`),
-  ADD CONSTRAINT `prod_lines_ibfk_2` FOREIGN KEY (`monitor_reg_num`) REFERENCES `monitors` (`reg_num`),
-  ADD CONSTRAINT `prod_lines_ibfk_3` FOREIGN KEY (`machine_ref`) REFERENCES `machines` (`ref`);
+  ADD CONSTRAINT `prod_lines_ibfk_2` FOREIGN KEY (`monitor_reg_num`) REFERENCES `monitors` (`reg_num`);
 
 --
 -- Contraintes pour la table `prod_performances`
