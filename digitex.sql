@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 16 août 2022 à 14:32
+-- Généré le : mer. 17 août 2022 à 11:47
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -408,9 +408,7 @@ ALTER TABLE `presences`
 -- Index pour la table `prod_lines`
 --
 ALTER TABLE `prod_lines`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `operator_reg_num` (`operator_reg_num`),
-  ADD KEY `monitor_reg_num` (`monitor_reg_num`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `prod_performances`
@@ -590,13 +588,6 @@ ALTER TABLE `pack_operations`
 --
 ALTER TABLE `presences`
   ADD CONSTRAINT `presences_ibfk_1` FOREIGN KEY (`operator_reg_num`) REFERENCES `operators` (`reg_num`);
-
---
--- Contraintes pour la table `prod_lines`
---
-ALTER TABLE `prod_lines`
-  ADD CONSTRAINT `prod_lines_ibfk_1` FOREIGN KEY (`operator_reg_num`) REFERENCES `operators` (`reg_num`),
-  ADD CONSTRAINT `prod_lines_ibfk_2` FOREIGN KEY (`monitor_reg_num`) REFERENCES `monitors` (`reg_num`);
 
 --
 -- Contraintes pour la table `prod_performances`

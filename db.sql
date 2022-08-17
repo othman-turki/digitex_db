@@ -43,9 +43,7 @@ CREATE TABLE prod_lines(
     monitor_reg_num VARCHAR(20) NOT NULL,
     machine_ref VARCHAR(40) NOT NULL DEFAULT '',
     digitex VARCHAR(40) NOT NULL DEFAULT '',
-    PRIMARY KEY(id),
-    FOREIGN KEY (operator_reg_num) REFERENCES operators(reg_num),
-    FOREIGN KEY (monitor_reg_num) REFERENCES monitors(reg_num)
+    PRIMARY KEY(id)
 );
 
 
