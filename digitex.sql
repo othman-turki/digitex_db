@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 17 août 2022 à 11:47
+-- Généré le : mer. 17 août 2022 à 13:32
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 8.1.6
 
@@ -45,12 +45,12 @@ CREATE TABLE `downtimes` (
 CREATE TABLE `fab_orders` (
   `id` int(11) NOT NULL,
   `number` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `model` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `client` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `prod_line` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `client` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `prod_line` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `quantity` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `fo_status` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'START',
-  `start_date` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `start_date` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `end_date` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `import_date` date DEFAULT curdate(),
   `import_time` time DEFAULT curtime()
@@ -65,10 +65,10 @@ CREATE TABLE `fab_orders` (
 CREATE TABLE `gamuts` (
   `id` int(11) NOT NULL,
   `fab_order_number` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `operation_code` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unit_time` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qte_h` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operation_code` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `designation` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `unit_time` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `qte_h` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `import_date` date DEFAULT curdate(),
   `import_time` time DEFAULT curtime()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -190,9 +190,9 @@ CREATE TABLE `packets` (
   `tag_id` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `pack_status` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `pack_num` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `color` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `size` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `color` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `size` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `quantity` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `fab_order_number` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
   `import_date` date DEFAULT curdate(),
   `import_time` time DEFAULT curtime()
@@ -207,11 +207,11 @@ CREATE TABLE `packets` (
 CREATE TABLE `pack_gamuts` (
   `id` int(11) NOT NULL,
   `fab_order_number` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `pack_num` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `operation_code` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `designation` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `unit_time` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `qte_h` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pack_num` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `operation_code` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `designation` varchar(80) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `unit_time` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `qte_h` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `op_status` tinyint(1) NOT NULL DEFAULT 0,
   `machine_ref` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `digitex` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
@@ -263,8 +263,8 @@ CREATE TABLE `presences` (
 CREATE TABLE `prod_lines` (
   `id` int(11) NOT NULL,
   `prod_line` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `operator_reg_num` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `monitor_reg_num` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `operator_reg_num` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `monitor_reg_num` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `machine_ref` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `digitex` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
